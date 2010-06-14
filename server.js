@@ -1,23 +1,23 @@
-var sys = require('sys'),
+var sys  = require('sys'),
     http = require('http'),
-    fs = require('fs'),
+    url  = require('url'),
+    util = require('./util'),
     port = parseInt(process.env.PORT || 8000);
 
-http.createServer(function (req, res) {
-    fs.readFile('index.html', function(err, data) {
-        if (err) {
-          sys.puts('Error loading file.');
-        } else {
-          sys.puts('Loading file.');
-        }
+// db url is at process.env.DATABASE_URL
 
-        res.writeHead(200, {
-          'Content-Type':   'text/html',
-          'Content-Length': data.length
-        });
-        res.write(data);
-        res.close();
-      });
+http.createServer(function (req, res) {
+  res.simpleJSON = function (code, obj) {
+    var body = JSON.stringify(obj);
+    res.writeHead(code, {
+      'Content-Type': 'text/json',
+      'Content-Length': body.length
+    });
+    res.write(body)
+    res.end();
+  };
+
+  (util.getMap[url.parse(req.url).pathname] || util.notFound)(req, res);
 }).listen(port);
 
 sys.puts('Server running at http://*:' + port);
