@@ -1,4 +1,5 @@
-var App = App || {};
+var App = App || {},
+    nicks;
 
 App.util = {};
 
@@ -21,6 +22,13 @@ App.config = {
   id: null
 };
 
+App.who = function() {
+  $.getJSON('/who', function(data) {
+      nicks = data.nicks;
+      $('#usersLink').text(nicks.length.toString() + ' users');
+  });
+};
+
 App.onConnect = function (session) {
   if (session.error) {
     alert(session.error);
@@ -29,6 +37,7 @@ App.onConnect = function (session) {
   }
   App.config.nick = session.nick;
   App.config.id = session.id;
+  App.who();
   App.showChat();
 };
 
