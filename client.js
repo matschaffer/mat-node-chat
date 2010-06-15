@@ -29,6 +29,33 @@ App.who = function() {
   });
 };
 
+App.userJoin = function(nick, timestamp) {
+  App.addMessage(nick, 'joined', timestamp);
+};
+
+App.addMessage = function(nick, text, time, _class) {
+  var messageElement, content;
+  if (!text) { return; }
+  if (!time) { time = new Date(); }
+
+  time = App.util.timeString(time);
+
+  messageElement = $('<table />', {
+    className: 'message'
+  });
+
+  if (_class) {
+    messageElement.addClass(_class);
+  }
+
+  content = '<tr><td class="date">' + time + '</td><td class="nick">' + nick +
+            '</td><td class="msg-text">' + text + '</td></tr>';
+
+  messageElement.html(content);
+
+  $('#log').append(messageElement);
+};
+
 App.onConnect = function (session) {
   if (session.error) {
     alert(session.error);
@@ -38,6 +65,7 @@ App.onConnect = function (session) {
   App.config.nick = session.nick;
   App.config.id = session.id;
   App.who();
+  App.userJoin(App.config.nick, new Date());
   App.showChat();
 };
 
