@@ -1,16 +1,15 @@
-var sys = require('sys'),
-    app;
+var sys  = require('sys'),
+    Faye = require('./faye-node'),
+    adapter = new Faye.NodeAdapter();
 
-app = function(req, res) {
-  var data = "hello connect";
-  res.writeHead(200, {
-    "Content-Type": "text/plain",
-    "Content-Length": data.length
-  });
-  res.end(data);
-};
+function handleFaye(request, response, next) {
+  if (!adapter.call(request, response)) {
+    next();
+  }
+}
 
 module.exports = new require('./lib/connect').createServer([
-  { filter: 'log' },
-  { module: { handle: app } }
+  {filter: 'log'},
+  {module: { handle: handleFaye } },
+  {provider: "static", root: "./public"}
 ]);
