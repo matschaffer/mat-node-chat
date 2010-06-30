@@ -1,4 +1,4 @@
-var sys  = require('sys'),
+var sys  = require('sys');
     //Faye = require('./faye-node'),
     //adapter = new Faye.NodeAdapter();
 
