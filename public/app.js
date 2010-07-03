@@ -6,9 +6,9 @@ $(function() {
             join = "/join",
             keepalive = "/keepalive";
 
-        setInterval(function () {
-          client.publish(keepalive, true);
-        }, 20000); 
+        //setInterval(function () {
+        //  client.publish(keepalive, true);
+        //}, 20000); 
 
         this.chat = function (message) {
           client.publish(chat, {

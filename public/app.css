@@ -24,6 +24,10 @@ body {
   font-weight: bold;
 }
 
+#messages { 
+  margin-bottom: 25px;
+}
+
 #name-section {
   margin: 100px auto;
   width: 300px;
