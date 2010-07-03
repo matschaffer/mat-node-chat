@@ -3,7 +3,12 @@ $(function() {
       Chatter = function (name) {
         var client = new Faye.Client(),
             chat = "/chat",
-            join = "/join";
+            join = "/join",
+            keepalive = "/keepalive";
+
+        setInterval(function () {
+          client.publish(keepalive, true);
+        }, 20000); 
 
         this.chat = function (message) {
           client.publish(chat, {
