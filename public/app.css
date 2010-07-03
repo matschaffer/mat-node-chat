@@ -1,0 +1,52 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+p {
+  padding: 3px;
+}
+
+body {
+  color: white;
+  background: black;
+}
+
+.errors {
+  color: red;
+}
+
+.join {
+  background: #400;
+}
+
+.name {
+  font-weight: bold;
+}
+
+#name-section {
+  margin: 100px auto;
+  width: 300px;
+  top: 50%;
+}
+
+#message-section {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: #333;
+}
+
+#message {
+  width: 500px;
+}
+
+label {
+  width: 5em;
+  display: block;
+  float: left;
+}
+
+#message-section {
+  display: none;
+}

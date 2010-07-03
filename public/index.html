@@ -2,47 +2,31 @@
 <html>
   <head>
     <title>Faye + Connect testing</title>
+    <link rel="stylesheet" href="/app.css" type="text/css" media="screen" />
   </head>
   <body>
-    <ul id="messages"></ul>
-    <form id="sender">
-      <p>
+    <div id="messages"></div>
+
+    <div id="name-section">
+      <form id="join">
+        <p class="errors"></p>
         <label for="name">Name:</label>
         <input type="text" id="name" name="name" />
-      </p>
-      <p>
+        <input type="submit" value="Join" />
+      </form>
+    </div>
+
+    <div id="message-section">
+      <form id="send">
         <label for="name">Message:</label>
         <input type="text" id="message" name="message" />
         <input type="submit" value="Send" />
-      </p>
-    </form>
+      </form>
+    </div>
       
     <script type="text/javascript" src="/bayeux/client.js"></script>
     <script type="text/javascript" src="/underscore-1.0.2.js"></script>
     <script type="text/javascript" src="/jquery-1.4.2.js"></script>
-    <script type="text/javascript">
-      $(function() {
-        var client  = new Faye.Client(),
-            channel = "/chat";
-
-        client.subscribe(channel, function(message) {
-          $("<li>" + message.name + ": " + message.message + "</li>").appendTo("#messages");
-        });
-
-        $("#sender").submit(function() {
-          var name       = $("#name").val(),
-              messageBox = $("#message");
-
-          client.publish(channel, {
-            name:    name,
-            message: messageBox.val()
-          });
-
-          messageBox.val("");
-
-          return false;
-        });
-      });
-    </script>
+    <script type="text/javascript" src="/app.js"></script>
   </body>
 </html>
