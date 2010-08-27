@@ -1,3 +1,5 @@
+var sys = require('sys');
+
 sys.puts("Node version is " + process.version);
 sys.puts("Env details are " + sys.inspect(process.env));
 
